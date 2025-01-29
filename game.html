@@ -39,9 +39,10 @@
     <div>
         <button onclick="move()">Click</button>
         <p id="result"></p>
+        <h3 id="oops"></h3>
     </div>
     <script>
-        let currentPosition=0;
+        let currentPosition=1;
         let divs=[]
         function random(){
             const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -78,17 +79,62 @@
     const player=document.createElement('div')
     player.classList.add('player')
     divs[99].appendChild(player)
-
+    
     function move(){
         const randomNo=random()
         const result=document.getElementById('result')
-        result.textContent = `You got a ${randomNo}!`;
+        
 
         let newPosition = currentPosition + randomNo;
+        result.textContent = `You got a ${randomNo}!:position is ${99-newPosition}`;
+        console.log("the positon",newPosition)
+        const oops=document.getElementById('oops')
         if (newPosition > 100) return;
-
+       
         divs[99 - newPosition].appendChild(player);
+        if(divs[99 - newPosition]==divs[90]){
+            divs[48].appendChild(player)
+            oops.textContent="you are lucky"
+        }
+        else if(divs[99 - newPosition]==divs[63]){
+            divs[15].appendChild(player)
+            oops.textContent="you are lucky"
+        }
+        else if(divs[99 - newPosition]==divs[60]){
+            divs[40].appendChild(player)
+            oops.textContent="you are lucky"
+        }
+        else if(divs[99 - newPosition]==divs[72]){
+            divs[86].appendChild(player)
+            oops.textContent="you are biten!!"
+        }
+        else if(divs[99 - newPosition]==divs[60]){
+            divs[81].appendChild(player)
+            oops.textContent="you are biten!!"
+
+        }
+        else if(divs[99 - newPosition]==divs[46]){
+            divs[64].appendChild(player)
+            oops.textContent="you are biten!!"
+
+        }
+        else if(divs[99 - newPosition]==divs[10]){
+            divs[67].appendChild(player)
+            oops.textContent="you are biten!!"
+
+        }
+        else if(divs[99 - newPosition]==divs[1]){
+            divs[97].appendChild(player)
+            oops.textContent="you are biten!!"
+
+        }
+        else if(divs[99 - newPosition]==divs[0]){
+            oops.textContent="you WON MAN !!"
+
+        }
         currentPosition = newPosition;
+        
+        
     }
 
 
