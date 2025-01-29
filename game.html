@@ -9,8 +9,8 @@
     #parent {
         position: relative;
         border: 1px solid black;
-        background-color: #bba8a8;
-        width: 550px;
+        background: url('ladderimg.jpg') no-repeat center center;
+        background-size: cover;         width: 550px;
         height: 500px;
         display: flex;
         flex-wrap: wrap;
@@ -65,7 +65,7 @@
             } 
             divs.push(...row)
             if(i%2 != 0){
-                row.reverse()                
+                row.reverse() // odd numbers i= 1, 3, 5, 7, 9         
             }
             //divs.push(...row)
             //parent.appendChild(child)
