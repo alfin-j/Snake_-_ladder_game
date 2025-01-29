@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake and Ladder</title>
+    <style>
+        #parent {
+            position: relative;
+            border: 1px solid black;
+            background-color: #bba8a8;
+            width: 440px;
+            height: 500px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid white;
+            position: relative;
+        }
+        .player {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent"></div>
+    <div>
+        <button onclick="movePlayer()">Roll Dice</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const parent = document.getElementById('parent');
+        let currentPosition = 1; // Start position
+        let cells = [];
+
+        // Creating Grid
+        let counter = 100;
+        for (let i = 0; i < 10; i++) {
+            let row = [];
+            for (let j = 0; j < 10; j++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.textContent = counter;
+                parent.appendChild(cell);
+                row.push(cell);
+                counter--;
+            }
+            if (i % 2 !== 0) {
+                row.reverse();
+            }
+            cells.push(...row);
+        }
+
+        // Create Player Token
+        const player = document.createElement('div');
+        player.classList.add('player');
+        cells[99].appendChild(player); // Start at cell 1 (bottom-left)
+
+        // Function to Move the Player
+        function movePlayer() {
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            document.getElementById('result').textContent = `You rolled a ${randomNumber}!`;
+
+            let newPosition = currentPosition + randomNumber;
+            if (newPosition > 100) return; // Prevents moving beyond 100
+
+            // Move the player
+            cells[100 - newPosition].appendChild(player);
+            currentPosition = newPosition;
+        }
+    </script>
+</body>
+</html>

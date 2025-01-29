@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #parent {
+        position: relative;
+        border: 1px solid black;
+        background-color: #bba8a8;
+        width: 550px;
+        height: 500px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .child{
+        width: 50px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid white;
+        position: relative;
+        padding: 1px;
+    }
+    .player {
+        width: 20px;
+        height: 20px;
+        background-color: red;
+        border-radius: 50%;
+        position: absolute;
+        }
+</style>
+<body>
+    <div id="parent">
+    </div>
+    <div>
+        <button onclick="move()">Click</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        let currentPosition=0;
+        let divs=[]
+        function random(){
+            const randomNumber = Math.floor(Math.random() * 6) + 1;
+            return randomNumber
+        }
+        console.log(random())
+        const parent=document.getElementById('parent')
+        //original=0
+        counter=100;
+        for(let i=0;i<10;i++){
+            let row=[]
+            for(let j=0;j<10;j++){
+                const child=document.createElement('div');
+                child.classList.add('child')
+                child.style.display='inline-block'
+                child.textContent=`${counter}`
+                //parent.appendChild(child)
+                row.push(child)
+                counter--
+                //original++
+            } 
+            divs.push(...row)
+            if(i%2 != 0){
+                row.reverse()                
+            }
+            //divs.push(...row)
+            //parent.appendChild(child)
+           row.forEach(ele => parent.appendChild(ele));
+           console.log(row)
+               
+    }
+    console.log(divs)
+    
+    const player=document.createElement('div')
+    player.classList.add('player')
+    divs[99].appendChild(player)
+
+    function move(){
+        const randomNo=random()
+        const result=document.getElementById('result')
+        result.textContent = `You got a ${randomNo}!`;
+
+        let newPosition = currentPosition + randomNo;
+        if (newPosition > 100) return;
+
+        divs[99 - newPosition].appendChild(player);
+        currentPosition = newPosition;
+    }
+
+
+
+    </script>
+</body>
+</html>
