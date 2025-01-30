@@ -25,17 +25,10 @@
         position: relative;
         padding: 1px;
     }
-    .player1 {
+    .player {
         width: 20px;
         height: 20px;
         background-color: red;
-        border-radius: 50%;
-        position: absolute;
-        }
-    .player2 {
-        width: 20px;
-        height: 20px;
-        background-color: rgb(26, 223, 36);
         border-radius: 50%;
         position: absolute;
         }
@@ -44,14 +37,12 @@
     <div id="parent">
     </div>
     <div>
-        <button onclick="movePlayer('player1')">Player1</button>
-        <button onclick="movePlayer('player2')">Player2</button>
+        <button onclick="move()">Click</button>
         <p id="result"></p>
         <h3 id="oops"></h3>
     </div>
     <script>
-        let currentPosition1=1;
-        let currentPosition2=1;
+        let currentPosition=1;
         let divs=[]
         function random(){
             const randomNumber = Math.floor(Math.random() * 6) + 1;
@@ -85,78 +76,64 @@
     }
     console.log(divs)
     
-    const player1=document.createElement('div')
-    const player2=document.createElement('div')
+    const player=document.createElement('div')
+    player.classList.add('player')
+    divs[99].appendChild(player)
     
-    player1.classList.add('player1')
-    player2.classList.add('player2')
-    
-    divs[99].appendChild(player1)
-    divs[99].appendChild(player2)
-    
-    function movePlayer(playername){
+    function move(){
         const randomNo=random()
-        const result=document.getElementById('result')   
-        let newPosition;
-        if(playername==='player1'){
-            newPosition = currentPosition1 + randomNo;
-            //console.log("the positon",newPosition)
-            //const oops=document.getElementById('oops')
-            if (newPosition > 100) return;
-            currentPosition1 =newPosition;
-            result.textContent = `You got a ${randomNo}!:position is ${99-newPosition}`;
+        const result=document.getElementById('result')
+        
 
-        }
-        else{
-            newPosition = currentPosition2 + randomNo;
-            result.textContent = `You got a ${randomNo}!:position is ${99-newPosition}`;
-            console.log("the positon",newPosition)
-            const oops=document.getElementById('oops')
-            if (newPosition > 100) return;
-            currentPosition2 =newPosition;
-        }
-
-
-        divs[99 - newPosition].appendChild(playername === "player1" ? player1 : player2);
+        let newPosition = currentPosition + randomNo;
+        result.textContent = `You got a ${randomNo}!:position is ${99-newPosition}`;
+        console.log("the positon",newPosition)
         const oops=document.getElementById('oops')
+        if (newPosition > 100) return;
+       
+        divs[99 - newPosition].appendChild(player);
         if(divs[99 - newPosition]==divs[90]){
-            divs[48].appendChild(playername === "player1" ? player1 : player2);
+            divs[48].appendChild(player)
             oops.textContent="you are lucky"
         }
         else if(divs[99 - newPosition]==divs[63]){
-            divs[15].appendChild(playername === "player1" ? player1 : player2);
+            divs[15].appendChild(player)
+            oops.textContent="you are lucky"
+        }
+        else if(divs[99 - newPosition]==divs[60]){
+            divs[40].appendChild(player)
             oops.textContent="you are lucky"
         }
         else if(divs[99 - newPosition]==divs[72]){
-            divs[86].appendChild(playername === "player1" ? player1 : player2);
+            divs[86].appendChild(player)
             oops.textContent="you are biten!!"
         }
         else if(divs[99 - newPosition]==divs[60]){
-            divs[81].appendChild(playername === "player1" ? player1 : player2);
+            divs[81].appendChild(player)
             oops.textContent="you are biten!!"
         }
         else if(divs[99 - newPosition]==divs[46]){
-            divs[64].appendChild(playername === "player1" ? player1 : player2);
+            divs[64].appendChild(player)
             oops.textContent="you are biten!!"
         }
         else if(divs[99 - newPosition]==divs[10]){
-            divs[67].appendChild(playername === "player1" ? player1 : player2);
+            divs[67].appendChild(player)
             oops.textContent="you are biten!!"
         }
         else if(divs[99 - newPosition]==divs[1]){
-            divs[97].appendChild(playername === "player1" ? player1 : player2);
+            divs[97].appendChild(player)
             oops.textContent="you are biten!!"
         }
         else if(divs[99 - newPosition]==divs[0]){
-            oops.textContent = `YOU WON! PLAYER ${playername === "player1" ? "1" : "2"}!!`;
+            oops.textContent="you WON MAN !!"
         }
-        if (playername === 'player1') {
-            currentPosition1 = newPosition;
-        } else {
-            currentPosition2 = newPosition;
-        }                
+        currentPosition = newPosition;
+        
+        
     }
-    
+
+
+
     </script>
 </body>
 </html>
